@@ -8,30 +8,42 @@ import org.apache.hadoop.hbase.client.*;
 import java.io.IOException;
 import java.util.List;
 
+import static org.joni.Config.log;
+
 public class HBaseutil {
     static Admin admin;
     static Connection conn;
+    static Configuration conf;
 
     public HBaseutil(){
         Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum","192.168.216.111");
-        conf.set("hbase.zookeeper.property.clientPort","2181");
+        conf.set("hbase.zookeeper.quorum",HadoopInfo.IP.value());
+        conf.set("hbase.zookeeper.property.clientPort",HadoopInfo.PORT.value());
+    }
+
+    public void getConnection() throws IOException{
         try {
             conn = ConnectionFactory.createConnection(conf);
             admin = conn.getAdmin();
+            if (admin == null){
+                log.println("[Connect Hbase Success]");
+            }
         } catch (IOException e) {
+            conn.close();
+            log.println("[Close Connection]");
             e.printStackTrace();
         }
     }
-    public void createTable (String mytablename,String[] familynames) throws IOException {
-        TableName tableName = TableName.valueOf(mytablename);
+
+    public void createTable (String connedTableName,String[] familyNames) throws IOException {
+        TableName tableName = TableName.valueOf(connedTableName);
         if (admin.tableExists(tableName)){
             System.out.println("table existed and will delete it now");
             admin.disableTable(tableName);
             admin.deleteTable(tableName);
         }
         HTableDescriptor hTableDescriptor = new HTableDescriptor(tableName);
-        for (String col:familynames){
+        for (String col: familyNames){
             HColumnDescriptor hColumnDescriptor = new HColumnDescriptor(col);
             hTableDescriptor.addFamily(hColumnDescriptor);
         }
@@ -40,8 +52,8 @@ public class HBaseutil {
         System.out.println("create table success");
     }
 
-    public void dropTable (String mytablename) throws IOException {
-        TableName tableName = TableName.valueOf(mytablename);
+    public void dropTable (String connedTableName) throws IOException {
+        TableName tableName = TableName.valueOf(connedTableName);
         if (admin.tableExists(tableName)){
             System.out.println("table existed and will delete it now");
             admin.disableTable(tableName);
@@ -50,8 +62,8 @@ public class HBaseutil {
         }
     }
 
-    public void tableExists (String mytablename) throws IOException {
-        TableName tableName = TableName.valueOf(mytablename);
+    public void tableExists (String connedTableName) throws IOException {
+        TableName tableName = TableName.valueOf(connedTableName);
         if (admin.tableExists(tableName)){
             System.out.println("table existed");
         }
@@ -60,11 +72,11 @@ public class HBaseutil {
         }
     }
 
-    public void addRecord(String mytablename, String rowkey, String[] familysname, String[] values) throws IOException {
-        TableName tableName = TableName.valueOf(mytablename);
+    public void addRecord(String connedTableName, String rowKey, String[] familysname, String[] values) throws IOException {
+        TableName tableName = TableName.valueOf(connedTableName);
         Table table = conn.getTable(tableName);
         for (int i=0;i< familysname.length;i++){
-            Put put = new Put(rowkey.getBytes());
+            Put put = new Put(rowKey.getBytes());
             String[] fsCols = familysname[i].split(":");
             if (fsCols.length==1){
                 put.addColumn(fsCols[0].getBytes(),"".getBytes(),values[i].getBytes());
@@ -78,17 +90,17 @@ public class HBaseutil {
         }
     }
 
-    public void delRowKey(String mytablename, String rowkey) throws IOException {
-        TableName tableName = TableName.valueOf(mytablename);
+    public void delRowKey(String connedTableName, String rowKey) throws IOException {
+        TableName tableName = TableName.valueOf(connedTableName);
         Table table = conn.getTable(tableName);
-        Delete delete = new Delete(rowkey.getBytes());
+        Delete delete = new Delete(rowKey.getBytes());
         table.delete(delete);
         table.close();
         System.out.println("delete data success");
     }
 
-    public void deleteFamily (String mytablename, String col) throws IOException {
-        TableName tableName = TableName.valueOf(mytablename);
+    public void deleteFamily (String connedTableName, String col) throws IOException {
+        TableName tableName = TableName.valueOf(connedTableName);
         if (admin.tableExists(tableName)){
             admin.deleteColumn(tableName, col.getBytes());
             System.out.println("delete col success");
@@ -96,12 +108,11 @@ public class HBaseutil {
         else {
             System.out.println("table not existed");
         }
-
     }
 
 
-    public void searchData(String mytablename) throws IOException {
-        Table table = conn.getTable(TableName.valueOf(mytablename));
+    public void searchData(String connedTableName) throws IOException {
+        Table table = conn.getTable(TableName.valueOf(connedTableName));
         Scan scan = new Scan();
         ResultScanner scanner = table.getScanner(scan);
         for (Result result : scanner) {
@@ -120,8 +131,8 @@ public class HBaseutil {
         table.close();
     }
 
-    public void modifyData (String mytablename,String col) throws IOException {
-        HTableDescriptor tableDescriptor = admin.getTableDescriptor(TableName.valueOf(mytablename));
+    public void modifyData (String connedTableName,String col) throws IOException {
+        HTableDescriptor tableDescriptor = admin.getTableDescriptor(TableName.valueOf(connedTableName));
         HColumnDescriptor[] columnFamilies = tableDescriptor.getColumnFamilies();
         for (HColumnDescriptor columnFamily : columnFamilies) {
             String nameAsString = columnFamily.getNameAsString();
@@ -129,7 +140,7 @@ public class HBaseutil {
                 columnFamily.setTimeToLive(5);
             }
         }
-        admin.modifyTable(TableName.valueOf(mytablename), tableDescriptor);
+        admin.modifyTable(TableName.valueOf(connedTableName), tableDescriptor);
         System.out.println("modify finish");
     }
 
