@@ -15,10 +15,9 @@ public class ControlMaster {
             log.print("in_OprHbase: ");
             String commandInput = input.next();
             String taskType = null;
-            String[] commandSplit = null;
             String connedTableName = null;
             if (commandInput != null) {
-                commandSplit = commandInput.split(" ");
+                String[] commandSplit = commandInput.split(" ");
                 taskType = commandSplit[0];
                 if (commandSplit.length > 1) {
                     connedTableName = commandSplit[1];
