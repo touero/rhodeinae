@@ -25,6 +25,8 @@ $ git clone https://github.com/weiensong/oprHbase.git
 ## Usage
 ```shell
 # May be specified as a package
+# set your hdfs info at HadoopInfo in utils package
+
 $ javac LocalRun.java
 $ java LocalRun
 ```
