@@ -26,11 +26,11 @@ public class HBaseutil {
             conn = ConnectionFactory.createConnection(conf);
             admin = conn.getAdmin();
             if (admin == null){
-                log.println("[Connect Hbase Success]");
+                log.println("in_OprHbase: [Connect Hbase Success]");
             }
         } catch (IOException e) {
             conn.close();
-            log.println("[Close Connection]");
+            log.println("in_OprHbase: [Close Connection]");
             e.printStackTrace();
         }
     }
@@ -38,7 +38,7 @@ public class HBaseutil {
     public void createTable (String connedTableName,String[] familyNames) throws IOException {
         TableName tableName = TableName.valueOf(connedTableName);
         if (admin.tableExists(tableName)){
-            System.out.println("table existed and will delete it now");
+            System.out.println("in_OprHbase: table existed and will delete it now");
             admin.disableTable(tableName);
             admin.deleteTable(tableName);
         }
@@ -49,26 +49,26 @@ public class HBaseutil {
         }
         admin.createTable(hTableDescriptor);
         admin.close();
-        System.out.println("create table success");
+        System.out.println("in_OprHbase: create table success");
     }
 
     public void dropTable (String connedTableName) throws IOException {
         TableName tableName = TableName.valueOf(connedTableName);
         if (admin.tableExists(tableName)){
-            System.out.println("table existed and will delete it now");
+            System.out.println("in_OprHbase: table existed and will delete it now");
             admin.disableTable(tableName);
             admin.deleteTable(tableName);
-            System.out.println("finish");
+            System.out.println("in_OprHbase: finish");
         }
     }
 
     public void tableExists (String connedTableName) throws IOException {
         TableName tableName = TableName.valueOf(connedTableName);
         if (admin.tableExists(tableName)){
-            System.out.println("table existed");
+            System.out.println("in_OprHbase: table existed");
         }
         else {
-            System.out.println("table not existed");
+            System.out.println("in_OprHbase: table not existed");
         }
     }
 
@@ -86,7 +86,7 @@ public class HBaseutil {
             }
             table.put(put);
             table.close();
-            System.out.println("add data success");
+            System.out.println("in_OprHbase: add data success");
         }
     }
 
@@ -96,17 +96,17 @@ public class HBaseutil {
         Delete delete = new Delete(rowKey.getBytes());
         table.delete(delete);
         table.close();
-        System.out.println("delete data success");
+        System.out.println("in_OprHbase: delete data success");
     }
 
     public void deleteFamily (String connedTableName, String col) throws IOException {
         TableName tableName = TableName.valueOf(connedTableName);
         if (admin.tableExists(tableName)){
             admin.deleteColumn(tableName, col.getBytes());
-            System.out.println("delete col success");
+            System.out.println("in_OprHbase: delete col success");
         }
         else {
-            System.out.println("table not existed");
+            System.out.println("in_OprHbase: table not existed");
         }
     }
 
@@ -141,7 +141,7 @@ public class HBaseutil {
             }
         }
         admin.modifyTable(TableName.valueOf(connedTableName), tableDescriptor);
-        System.out.println("modify finish");
+        System.out.println("in_OprHbase: modify finish");
     }
 
 }

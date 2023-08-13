@@ -1,21 +1,24 @@
 package utils;
 
 public enum TaskType {
-    CREATETABLE(1),
-    DROPTABLE(2),
-    TABLEEXISTS(3),
-    ADDRECORD(1),
-    DELROWKEY(1),
-    DELETEFAMILY(1),
-    SEARCHDATA(1),
-    MODIFYDATA(1);
+    VERSION("--version"),
+    QUIT("--quit"),
+    HELP("--help"),
+    CREATETABLE("ct"),
+    DROPTABLE("dt"),
+    TABLEEXISTS("te"),
+    ADDRECORD("ad"),
+    DELROWKEY("dr"),
+    DELETEFAMILY("df"),
+    SEARCHDATA("sd"),
+    MODIFYDATA("md");
 
-    private final Integer value;
+    private final String value;
 
-    TaskType(Integer value) {
+    TaskType(String value) {
         this.value = value;
     }
-    public Integer value(){
+    public String value(){
         return this.value;
     }
 }
