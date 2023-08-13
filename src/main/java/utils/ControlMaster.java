@@ -19,16 +19,18 @@ public class ControlMaster {
             String connedTableName = null;
             if (commandInput != null) {
                 commandSplit = commandInput.split(" ");
-                taskType = commandSplit[0].toString();
+                taskType = commandSplit[0];
                 if (commandSplit.length > 1) {
-                    connedTableName = commandSplit[1].toString();
+                    connedTableName = commandSplit[1];
                 }
             }
             if (Objects.equals(taskType, TaskType.HELP.value())) {
                 show.help();
+                continue;
             }
             if (Objects.equals(taskType, TaskType.VERSION.value())) {
                 show.version();
+                continue;
             }
             if (Objects.equals(taskType, TaskType.QUIT.value())) {
                 log.println("in_OprHbase: quit OprHbase success");
