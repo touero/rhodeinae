@@ -12,7 +12,7 @@
 
 Please wait for improvement. This is a Java program for remote operation of Hbase.
 
-![img.png](.about/img.PNG)
+![img.png](.about/img.png)
 
 ## Install
 
