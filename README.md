@@ -34,8 +34,8 @@ $ java LocalRun
 
 ## Related Repository
 
-- [hadoop](https://github.com/apache/hadoop) —Apache hadoop
-- [hbase](https://github.com/apache/hbase) —Apache hbase
+- [hadoop](https://github.com/apache/hadoop) — Apache hadoop
+- [hbase](https://github.com/apache/hbase) — Apache hbase
 
 
 
