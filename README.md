@@ -1,4 +1,4 @@
-<h1 align="center">Remote operation Hbase</h1>
+<h1 align="center">rhodeinae</h1>
 
 <p align="center">
 <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/license_-Apache2.0-blue" alt=""></a> 
