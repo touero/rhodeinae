@@ -1,11 +1,15 @@
 <h1 align="center">rhodeinae</h1>
 
 <p align="center">
-<a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/license_-Apache2.0-blue" alt=""></a> 
-<a href="https://www.java.com/"><img src="https://img.shields.io/badge/Java_-red" alt=""></a> 
-<a href="https://maven.apache.org/"><img src="https://img.shields.io/badge/Maven_-red" alt=""></a> 
-<a href="https://hadoop.apache.org/"><img src="https://img.shields.io/badge/Hadoop_-red" alt=""></a> 
-<a href="https://hbase.apache.org/"><img src="https://img.shields.io/badge/Hbase_-red" alt=""></a> 
+    <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/license_-Apache2.0-blue" alt=""></a> 
+    <a href="https://www.java.com/"><img src="https://img.shields.io/badge/Java_-red" alt=""></a> 
+    <a href="https://maven.apache.org/"><img src="https://img.shields.io/badge/Maven_-red" alt=""></a> 
+    <a href="https://hadoop.apache.org/"><img src="https://img.shields.io/badge/Hadoop_-red" alt=""></a> 
+    <a href="https://hbase.apache.org/"><img src="https://img.shields.io/badge/Hbase_-red" alt=""></a> 
+</p>
+
+<p align="center">
+    <img src=.about/rhodeinae.png height="200" width="200" alt="">
 </p>
 
 ## Repository Introduction
