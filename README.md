@@ -23,16 +23,14 @@ Please wait for improvement. This is a Java program for remote operation of Hbas
 This project uses [Java](https://www.java.com/) [Git](https://git-scm.com/) [Hbase](https://hbase.apache.org/), Go check them out if you don't have them locally installed.
 
 ```shell
-$ git clone https://github.com/weiensong/oprHbase.git
+git clone https://github.com/weiensong/oprHbase.git
 ```
 
 ## Usage
+May be specified as a package, setting your hdfs info at HadoopInfo in utils package
 ```shell
-# May be specified as a package
-# set your hdfs info at HadoopInfo in utils package
-
-$ javac LocalRun.java
-$ java LocalRun
+javac LocalRun.java
+java LocalRun
 ```
 
 
